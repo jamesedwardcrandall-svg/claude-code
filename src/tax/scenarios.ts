@@ -57,25 +57,6 @@ function emptyComp(): CompensationBreakdown {
   };
 }
 
-function emptyPayroll(): PayrollTaxBreakdown {
-  return {
-    fica: {
-      socialSecurityEmployee: 0,
-      socialSecurityEmployer: 0,
-      medicareEmployee: 0,
-      medicareEmployer: 0,
-      additionalMedicare: 0,
-      totalEmployee: 0,
-      totalEmployer: 0,
-      total: 0,
-    },
-    futa: 0,
-    suta: 0,
-    totalEmployer: 0,
-    totalAll: 0,
-  };
-}
-
 function emptyQBI(): QBIDetail {
   return { qbi: 0, twentyPctQBI: 0, fiftyPctW2: 0, deduction: 0, limited: false };
 }
