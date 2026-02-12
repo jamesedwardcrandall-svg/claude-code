@@ -12,6 +12,7 @@ interface Row {
   bold?: boolean;
   highlight?: boolean;
   indent?: boolean;
+  separator?: boolean;
 }
 
 export default function ComparisonTable({ comparison }: Props) {
@@ -26,25 +27,52 @@ export default function ComparisonTable({ comparison }: Props) {
     },
     {
       label: 'Business Expenses',
-      values: [-w2.totalExpenses, -sole_prop.totalExpenses, -s_corp.totalExpenses],
+      values: [0, -sole_prop.totalExpenses, -s_corp.totalExpenses],
       format: 'currency',
       indent: true,
     },
     {
-      label: 'Net Business Income',
-      values: [w2.netBusinessIncome, sole_prop.netBusinessIncome, s_corp.netBusinessIncome],
+      label: 'W-2 Salary + Bonus',
+      values: [
+        w2.compensation.totalCashComp,
+        0,
+        s_corp.compensation.totalCashComp,
+      ],
+      format: 'currency',
+      indent: true,
+    },
+    {
+      label: 'Health Insurance',
+      values: [0, -sole_prop.compensation.healthInsurance, -s_corp.compensation.healthInsurance],
+      format: 'currency',
+      indent: true,
+    },
+    {
+      label: '401(k) (Employee + Employer)',
+      values: [
+        0,
+        -(sole_prop.compensation.employee401k + sole_prop.compensation.employer401kMatch),
+        -(s_corp.compensation.employee401k + s_corp.compensation.employer401kMatch),
+      ],
+      format: 'currency',
+      indent: true,
+    },
+    {
+      label: 'Employer Payroll Taxes',
+      values: [0, 0, -s_corp.payrollTaxes.totalEmployer],
+      format: 'currency',
+      indent: true,
+    },
+    {
+      label: 'Net Income / K-1',
+      values: [0, sole_prop.netCorpIncome, s_corp.netCorpIncome],
       format: 'currency',
       bold: true,
+      separator: true,
     },
     {
-      label: 'W-2 Salary',
-      values: [w2.grossRevenue, 0, s_corp.salary ?? 0],
-      format: 'currency',
-      indent: true,
-    },
-    {
-      label: 'Distributions',
-      values: [0, 0, s_corp.distributions ?? 0],
+      label: 'QBI Deduction (Sec. 199A)',
+      values: [0, -sole_prop.qbiDeduction, -s_corp.qbiDeduction],
       format: 'currency',
       indent: true,
     },
@@ -55,16 +83,11 @@ export default function ComparisonTable({ comparison }: Props) {
       indent: true,
     },
     {
-      label: 'QBI Deduction (Sec. 199A)',
-      values: [-w2.qbiDeduction, -sole_prop.qbiDeduction, -s_corp.qbiDeduction],
-      format: 'currency',
-      indent: true,
-    },
-    {
       label: 'Taxable Income',
       values: [w2.taxableIncome, sole_prop.taxableIncome, s_corp.taxableIncome],
       format: 'currency',
       bold: true,
+      separator: true,
     },
     {
       label: 'Federal Income Tax',
@@ -72,9 +95,25 @@ export default function ComparisonTable({ comparison }: Props) {
       format: 'currency',
     },
     {
-      label: 'FICA / SE Tax (total)',
-      values: [w2.fica.total, sole_prop.fica.total, s_corp.fica.total],
+      label: 'Payroll / SE Tax',
+      values: [
+        w2.payrollTaxes.totalAll,
+        sole_prop.payrollTaxes.totalAll,
+        s_corp.payrollTaxes.totalAll,
+      ],
       format: 'currency',
+    },
+    {
+      label: 'Additional Medicare (0.9%)',
+      values: [w2.additionalMedicareTax, sole_prop.additionalMedicareTax, s_corp.additionalMedicareTax],
+      format: 'currency',
+      indent: true,
+    },
+    {
+      label: 'FUTA + SUTA',
+      values: [0, 0, s_corp.payrollTaxes.futa + s_corp.payrollTaxes.suta],
+      format: 'currency',
+      indent: true,
     },
     {
       label: 'Texas Franchise Tax',
@@ -87,9 +126,10 @@ export default function ComparisonTable({ comparison }: Props) {
       format: 'currency',
       bold: true,
       highlight: true,
+      separator: true,
     },
     {
-      label: 'Net Income (Take-Home)',
+      label: 'Net Take-Home',
       values: [w2.netIncome, sole_prop.netIncome, s_corp.netIncome],
       format: 'currency',
       bold: true,
@@ -103,7 +143,6 @@ export default function ComparisonTable({ comparison }: Props) {
     },
   ];
 
-  // Find best (lowest tax) scenario
   const taxes = [w2.totalTax, sole_prop.totalTax, s_corp.totalTax];
   const bestIdx = taxes.indexOf(Math.min(...taxes));
 
@@ -143,7 +182,7 @@ export default function ComparisonTable({ comparison }: Props) {
             {rows.map((row) => (
               <tr
                 key={row.label}
-                className={`border-t border-gray-100 ${row.highlight ? 'bg-blue-50/50' : ''}`}
+                className={`border-t ${row.separator ? 'border-gray-300' : 'border-gray-100'} ${row.highlight ? 'bg-blue-50/50' : ''}`}
               >
                 <td
                   className={`px-6 py-2.5 ${row.bold ? 'font-semibold text-gray-900' : 'text-gray-600'} ${row.indent ? 'pl-10' : ''}`}

@@ -6,12 +6,15 @@ export function calcExpenses(input: TaxInput): ExpenseBreakdown {
   const mealsDeduction = input.meals * MEALS_DEDUCTION_RATE;
   const travelDeduction = input.travel;
   const otherDeduction = input.otherExpenses;
+  const cpaFeesDeduction = input.cpaFees;
 
   return {
     mileageDeduction,
     mealsDeduction,
     travelDeduction,
     otherDeduction,
-    totalDeductions: mileageDeduction + mealsDeduction + travelDeduction + otherDeduction,
+    cpaFeesDeduction,
+    totalDeductions:
+      mileageDeduction + mealsDeduction + travelDeduction + otherDeduction + cpaFeesDeduction,
   };
 }

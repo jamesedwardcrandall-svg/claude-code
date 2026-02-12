@@ -8,15 +8,30 @@ import ComparisonTable from './components/ComparisonTable';
 import TaxBreakdown from './components/TaxBreakdown';
 import SalaryOptimizer from './components/SalaryOptimizer';
 import QuarterlyEstimates from './components/QuarterlyEstimates';
+import CashFlowCalendar from './components/CashFlowCalendar';
 
 const DEFAULT_INPUT: TaxInput = {
-  grossRevenue: 250_000,
+  grossRevenue: 1_000_000,
   filingStatus: 'mfj',
-  mileage: 15_000,
-  meals: 3_000,
-  travel: 2_000,
-  otherExpenses: 12_000,
-  sCorpSalary: 70_000,
+
+  // Compensation — target ~40% of net income total
+  baseSalary: 75_000,
+  bonusPct: 0.40, // 40% of revenue above threshold
+  bonusThreshold: 150_000,
+
+  // Benefits
+  healthInsurance: 12_000,
+  employee401k: 24_500,
+  employer401kPct: 0.10, // 10%
+
+  // Business Expenses
+  mileage: 5_000,
+  meals: 2_000,
+  travel: 0,
+  otherExpenses: 1_500,
+  cpaFees: 3_000,
+
+  // Other income
   otherW2Income: 0,
 };
 
@@ -40,7 +55,7 @@ function App() {
               </p>
             </div>
             <span className="text-xs text-gray-400 bg-gray-100 px-3 py-1 rounded-full">
-              Single-Shareholder S Corp
+              Single-Shareholder S Corp &middot; Non-SSTB
             </span>
           </div>
         </div>
@@ -64,11 +79,14 @@ function App() {
             {/* Salary optimizer */}
             <SalaryOptimizer
               input={input}
-              onApplySalary={(salary) => setInput({ ...input, sCorpSalary: salary })}
+              onApplySalary={(salary) => setInput({ ...input, baseSalary: salary })}
             />
 
             {/* Quarterly estimates */}
             <QuarterlyEstimates comparison={comparison} />
+
+            {/* Cash flow calendar */}
+            <CashFlowCalendar result={comparison.s_corp} />
 
             {/* Detailed breakdowns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -81,9 +99,10 @@ function App() {
             <div className="bg-gray-100 rounded-xl p-4 text-xs text-gray-500">
               <strong>Disclaimer:</strong> This tool provides estimates for educational and planning
               purposes only. Tax rates and thresholds are estimated for the {TAX_YEAR} tax year.
-              Real estate brokerage is classified as a Specified Service Trade or Business (SSTB)
-              under Section 199A. Texas has no state income tax but S Corps may owe franchise tax.
-              Always consult a qualified CPA or tax professional for your specific situation.
+              Real estate brokerage is classified as a non-SSTB for Section 199A purposes. QBI
+              deduction = lesser of 20% of QBI or 50% of W-2 wages (when above threshold). Texas
+              has no state income tax but S Corps may owe franchise tax. Always consult a qualified
+              CPA or tax professional for your specific situation.
             </div>
           </div>
         </div>

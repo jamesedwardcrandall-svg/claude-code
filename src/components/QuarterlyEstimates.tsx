@@ -19,10 +19,11 @@ export default function QuarterlyEstimates({ comparison }: Props) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
       <h2 className="text-lg font-semibold text-gray-900 mb-1">
-        S Corp Quarterly Estimated Tax Payments
+        Quarterly Estimated Tax Payments
       </h2>
       <p className="text-sm text-gray-500 mb-4">
-        Federal estimated taxes (income tax + employee FICA) divided into 4 payments
+        Federal estimated taxes (income tax + employee FICA + additional Medicare) &divide; 4.
+        If withholding through payroll covers the full amount, estimated payments may not be needed.
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {QUARTERS.map((q) => (

@@ -11,8 +11,9 @@ import {
 
 /**
  * Calculate FICA for W-2 wages (employer + employee split).
+ * Additional Medicare tax (0.9%) is tracked separately in scenarios.
  */
-export function calcW2FICA(wages: number, status: FilingStatus): FICABreakdown {
+export function calcW2FICA(wages: number): FICABreakdown {
   const ssWages = Math.min(wages, SS_WAGE_BASE);
   const ssEmployee = ssWages * SS_RATE;
   const ssEmployer = ssWages * SS_RATE;
@@ -20,22 +21,15 @@ export function calcW2FICA(wages: number, status: FilingStatus): FICABreakdown {
   const medicareEmployee = wages * MEDICARE_RATE;
   const medicareEmployer = wages * MEDICARE_RATE;
 
-  const additionalMedicareThreshold =
-    status === 'mfj' ? ADDITIONAL_MEDICARE_THRESHOLD_MFJ : ADDITIONAL_MEDICARE_THRESHOLD_SINGLE;
-  const additionalMedicare =
-    wages > additionalMedicareThreshold
-      ? (wages - additionalMedicareThreshold) * ADDITIONAL_MEDICARE_RATE
-      : 0;
-
   return {
     socialSecurityEmployee: ssEmployee,
     socialSecurityEmployer: ssEmployer,
     medicareEmployee,
     medicareEmployer,
-    additionalMedicare,
-    totalEmployee: ssEmployee + medicareEmployee + additionalMedicare,
+    additionalMedicare: 0,
+    totalEmployee: ssEmployee + medicareEmployee,
     totalEmployer: ssEmployer + medicareEmployer,
-    total: ssEmployee + ssEmployer + medicareEmployee + medicareEmployer + additionalMedicare,
+    total: ssEmployee + ssEmployer + medicareEmployee + medicareEmployer,
   };
 }
 
@@ -43,7 +37,7 @@ export function calcW2FICA(wages: number, status: FilingStatus): FICABreakdown {
  * Calculate Self-Employment tax for sole proprietors (Schedule SE).
  * SE tax base = 92.35% of net self-employment income.
  */
-export function calcSETax(netSEIncome: number, status: FilingStatus): FICABreakdown {
+export function calcSETax(netSEIncome: number): FICABreakdown {
   const seBase = netSEIncome * SE_TAX_RATE;
   const ssBase = Math.min(seBase, SS_WAGE_BASE);
   const ssEmployee = ssBase * SS_RATE;
@@ -52,21 +46,24 @@ export function calcSETax(netSEIncome: number, status: FilingStatus): FICABreakd
   const medicareEmployee = seBase * MEDICARE_RATE;
   const medicareEmployer = seBase * MEDICARE_RATE;
 
-  const additionalMedicareThreshold =
-    status === 'mfj' ? ADDITIONAL_MEDICARE_THRESHOLD_MFJ : ADDITIONAL_MEDICARE_THRESHOLD_SINGLE;
-  const additionalMedicare =
-    seBase > additionalMedicareThreshold
-      ? (seBase - additionalMedicareThreshold) * ADDITIONAL_MEDICARE_RATE
-      : 0;
-
   return {
     socialSecurityEmployee: ssEmployee,
     socialSecurityEmployer: ssEmployer,
     medicareEmployee,
     medicareEmployer,
-    additionalMedicare,
-    totalEmployee: ssEmployee + medicareEmployee + additionalMedicare,
+    additionalMedicare: 0,
+    totalEmployee: ssEmployee + medicareEmployee,
     totalEmployer: ssEmployer + medicareEmployer,
-    total: ssEmployee + ssEmployer + medicareEmployee + medicareEmployer + additionalMedicare,
+    total: ssEmployee + ssEmployer + medicareEmployee + medicareEmployer,
   };
+}
+
+/**
+ * Calculate Additional Medicare Tax (0.9%) on wages above threshold.
+ * This is an employee-only surtax assessed on the personal return.
+ */
+export function calcAdditionalMedicare(totalWages: number, status: FilingStatus): number {
+  const threshold =
+    status === 'mfj' ? ADDITIONAL_MEDICARE_THRESHOLD_MFJ : ADDITIONAL_MEDICARE_THRESHOLD_SINGLE;
+  return totalWages > threshold ? (totalWages - threshold) * ADDITIONAL_MEDICARE_RATE : 0;
 }

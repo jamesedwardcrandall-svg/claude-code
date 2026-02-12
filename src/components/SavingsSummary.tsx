@@ -10,7 +10,7 @@ export default function SavingsSummary({ comparison }: Props) {
 
   const sCorpVsSoleProp = sole_prop.totalTax - s_corp.totalTax;
   const sCorpVsW2 = w2.totalTax - s_corp.totalTax;
-  const ficaSavings = sole_prop.fica.total - s_corp.fica.total;
+  const ficaSavings = sole_prop.payrollTaxes.totalAll - s_corp.payrollTaxes.totalAll;
 
   const cards = [
     {
@@ -28,13 +28,13 @@ export default function SavingsSummary({ comparison }: Props) {
     {
       title: 'FICA/SE Tax Savings',
       value: ficaSavings,
-      detail: `${fmtCurrency(sole_prop.fica.total)} -> ${fmtCurrency(s_corp.fica.total)}`,
+      detail: `${fmtCurrency(sole_prop.payrollTaxes.totalAll)} -> ${fmtCurrency(s_corp.payrollTaxes.totalAll)}`,
       positive: ficaSavings > 0,
     },
     {
       title: 'S Corp Net Take-Home',
       value: s_corp.netIncome,
-      detail: `After all federal taxes`,
+      detail: 'After all federal taxes',
       positive: true,
       isAbsolute: true,
     },
