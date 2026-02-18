@@ -370,6 +370,129 @@ h1, h2, h3, h4 {
   fill: currentColor;
 }
 
+/* ── Email Gate ── */
+#email-gate {
+  display: none;
+  padding: 40px 0 100px;
+}
+
+#email-gate.visible {
+  display: block;
+}
+
+.gate-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.gate-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.gate-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--white);
+}
+
+.gate-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.gate-sub {
+  font-size: 0.95rem;
+  color: var(--gray-500);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.gate-form {
+  text-align: left;
+}
+
+.gate-form .form-group {
+  margin-bottom: 14px;
+}
+
+.gate-form label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gate-form .form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.gate-form .form-input::placeholder {
+  color: var(--gray-400);
+}
+
+.gate-form .form-input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+.gate-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--navy), var(--navy-light));
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 6px;
+  box-shadow: var(--shadow-md);
+}
+
+.gate-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.gate-privacy {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  text-align: center;
+  margin-top: 14px;
+}
+
+.optional-label {
+  font-weight: 400 !important;
+  opacity: 0.5 !important;
+  font-style: italic;
+}
+
 /* ── Loading Screen ── */
 #loading-screen {
   display: none;
@@ -658,85 +781,17 @@ h1, h2, h3, h4 {
   line-height: 1.5;
 }
 
-.form-group {
-  margin-bottom: 14px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  opacity: 0.9;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.form-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  background: rgba(255,255,255,0.1);
-  color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  transition: border-color 0.2s;
-}
-
-.form-input::placeholder {
-  color: rgba(255,255,255,0.4);
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: var(--green);
-}
-
-.optional-label {
-  font-weight: 400 !important;
-  opacity: 0.5 !important;
-  font-style: italic;
-}
-
-.btn-cta {
-  width: 100%;
-  padding: 14px;
-  background: var(--green);
-  color: var(--white);
-  border: none;
-  border-radius: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 6px;
-}
-
-.btn-cta:hover {
-  background: var(--green-dark);
-  transform: translateY(-1px);
-}
-
-.divider-or {
-  text-align: center;
-  font-size: 0.85rem;
-  opacity: 0.6;
-  margin: 20px 0;
-}
-
 .btn-book {
   display: block;
   width: 100%;
   padding: 14px;
-  background: transparent;
-  border: 2px solid rgba(255,255,255,0.3);
+  background: var(--green);
+  border: none;
   border-radius: 8px;
   color: var(--white);
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -744,8 +799,8 @@ h1, h2, h3, h4 {
 }
 
 .btn-book:hover {
-  border-color: var(--white);
-  background: rgba(255,255,255,0.1);
+  background: var(--green-dark);
+  transform: translateY(-1px);
 }
 
 /* Share */
@@ -879,6 +934,9 @@ h1, h2, h3, h4 {
   .cta-section {
     padding: 24px 18px;
   }
+  .gate-card {
+    padding: 28px 20px;
+  }
 }
 </style>
 </head>
@@ -906,7 +964,7 @@ h1, h2, h3, h4 {
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
       </div>
       <h1>The Broker Tax Scorecard</h1>
-      <p class="subtitle">How optimized is your tax structure? Find out in 60 seconds.</p>
+      <p class="subtitle">Are you leaving money on the table?</p>
       <div class="time-badge">
         <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
         Takes about 60 seconds
@@ -918,6 +976,33 @@ h1, h2, h3, h4 {
     </div>
 
     <!-- Questions will be injected here -->
+  </div>
+
+  <!-- Email Gate -->
+  <div id="email-gate">
+    <div class="gate-card">
+      <div class="gate-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <div class="gate-title">Your score is ready!</div>
+      <div class="gate-sub">Enter your info below to see your personalized tax optimization grade and recommendations.</div>
+      <form class="gate-form" id="gate-form" onsubmit="window._gateSubmit(event)">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" class="form-input" id="gate-name" placeholder="Your first name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-input" id="gate-email" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone <span class="optional-label">(optional)</span></label>
+          <input type="tel" class="form-input" id="gate-phone" placeholder="(555) 555-5555">
+        </div>
+        <button type="submit" class="gate-submit">Show My Results</button>
+      </form>
+      <div class="gate-privacy">We respect your privacy. No spam, ever.</div>
+    </div>
   </div>
 
   <!-- Loading -->
@@ -940,10 +1025,10 @@ h1, h2, h3, h4 {
   'use strict';
 
   // ── Question Data ──
+  // Order: Income > Entity > Income Type (conditional) > Retirement > Estimated Tax > Expenses > Planning > S-Corp Salary (conditional)
   var questions = [
     {
       id: 'income',
-      number: 1,
       text: "What's your annual gross commission income?",
       options: [
         { label: 'Under $150K', value: 'under150' },
@@ -955,29 +1040,27 @@ h1, h2, h3, h4 {
     },
     {
       id: 'entity',
-      number: 2,
       text: 'How is your business currently structured?',
       options: [
         { label: 'Sole Proprietor / Schedule C', value: 'sole_prop' },
         { label: 'Single-Member LLC (taxed as sole prop)', value: 'smllc' },
         { label: 'S-Corporation', value: 's_corp' },
-        { label: 'C-Corporation', value: 'c_corp' },
+        { label: "I'm a W-2 employee", value: 'w2_employee' },
         { label: "I'm not sure", value: 'not_sure' }
       ]
     },
     {
       id: 'income_type',
-      number: 3,
       text: 'How do you receive your commission income?',
+      conditional: true,
+      showIf: function(a) { return a.entity !== 'w2_employee'; },
       options: [
-        { label: 'W-2 employee at a brokerage', value: 'w2' },
         { label: '1099 independent contractor', value: '1099' },
-        { label: 'Mix of both', value: 'mix' }
+        { label: 'Mix of W-2 and 1099', value: 'mix' }
       ]
     },
     {
       id: 'retirement',
-      number: 4,
       text: 'Do you have a retirement plan set up through your business?',
       options: [
         { label: 'Yes, and I max it out', value: 'max' },
@@ -988,19 +1071,17 @@ h1, h2, h3, h4 {
     },
     {
       id: 'estimated_tax',
-      number: 5,
       text: 'How are you handling your tax payments throughout the year?',
       options: [
-        { label: 'Yes, through my S-Corp W-2 withholding (year-end true-up)', value: 'w2_withholding' },
-        { label: 'Yes, quarterly estimated payments consistently', value: 'quarterly' },
-        { label: 'Sometimes, but not every quarter', value: 'sometimes' },
-        { label: 'No', value: 'no' },
+        { label: "I project my taxes annually and pay them in December through my S Corp's paycheck", value: 'w2_withholding' },
+        { label: 'I consistently make quarterly payments', value: 'quarterly' },
+        { label: 'I make payments sometimes, but not regularly', value: 'sometimes' },
+        { label: 'I just pay what my CPA says upon filing my return', value: 'no' },
         { label: "I'm a W-2 employee so taxes are withheld automatically", value: 'w2_auto' }
       ]
     },
     {
       id: 'expenses',
-      number: 6,
       text: 'How well are you tracking business deductions?',
       options: [
         { label: 'Detailed system \u2014 I track everything', value: 'detailed' },
@@ -1010,7 +1091,6 @@ h1, h2, h3, h4 {
     },
     {
       id: 'planning',
-      number: 7,
       text: 'When was your last proactive tax planning session (not just filing your return)?',
       options: [
         { label: 'Within the last 6 months', value: '6months' },
@@ -1021,10 +1101,9 @@ h1, h2, h3, h4 {
     },
     {
       id: 'scorp_salary',
-      number: 8,
       text: 'Roughly what percentage of your S-Corp net income do you pay yourself as W-2 salary?',
       conditional: true,
-      showIf: function(answers) { return answers.entity === 's_corp'; },
+      showIf: function(a) { return a.entity === 's_corp'; },
       options: [
         { label: 'Less than 30%', value: 'under30' },
         { label: '30% \u2013 50%', value: '30-50' },
@@ -1035,6 +1114,7 @@ h1, h2, h3, h4 {
   ];
 
   var answers = {};
+  var leadInfo = {};
   var currentScreen = 0; // 0 = welcome, 1-N = questions
   var activeQuestions = [];
 
@@ -1082,11 +1162,9 @@ h1, h2, h3, h4 {
 
   function renderQuestions() {
     activeQuestions = getActiveQuestions();
-    // Clear existing question screens
     var area = $('screen-area');
     var existing = area.querySelectorAll('.screen:not(#welcome)');
     existing.forEach(function(el) { el.remove(); });
-    // Build fresh
     activeQuestions.forEach(function(q, i) {
       area.appendChild(buildQuestionScreen(q, i, activeQuestions.length));
     });
@@ -1099,9 +1177,9 @@ h1, h2, h3, h4 {
     }
     $('progress-wrapper').style.display = 'block';
     var total = activeQuestions.length;
-    var step = currentScreen; // 1-based
+    var step = currentScreen;
     $('progress-step').textContent = step + ' of ' + total;
-    var pct = ((step) / total) * 100;
+    var pct = (step / total) * 100;
     $('progress-fill').style.width = pct + '%';
   }
 
@@ -1110,7 +1188,6 @@ h1, h2, h3, h4 {
     var screens = area.querySelectorAll('.screen');
     var currentEl = area.querySelector('.screen.active');
 
-    // Determine target screen
     var targetEl;
     if (newIdx === 0) {
       targetEl = $('welcome');
@@ -1120,22 +1197,18 @@ h1, h2, h3, h4 {
 
     if (!targetEl || targetEl === currentEl) return;
 
-    // Remove all transition classes
     screens.forEach(function(s) {
       s.classList.remove('exit-left', 'exit-right', 'enter-left', 'enter-right');
     });
 
-    // Set up enter position
     if (direction === 'forward') {
       targetEl.classList.add('enter-right');
     } else {
       targetEl.classList.add('enter-left');
     }
 
-    // Force reflow
     void targetEl.offsetWidth;
 
-    // Animate current out
     if (currentEl) {
       if (direction === 'forward') {
         currentEl.classList.add('exit-left');
@@ -1145,7 +1218,6 @@ h1, h2, h3, h4 {
       currentEl.classList.remove('active');
     }
 
-    // Animate target in
     targetEl.classList.remove('enter-right', 'enter-left');
     targetEl.classList.add('active');
 
@@ -1159,22 +1231,27 @@ h1, h2, h3, h4 {
     var val = btn.getAttribute('data-value');
     answers[qid] = val;
 
-    // Update visual
     var siblings = btn.parentElement.querySelectorAll('.option-btn');
     siblings.forEach(function(s) { s.classList.remove('selected'); });
     btn.classList.add('selected');
 
-    // Enable next button
     var nextBtn = $('next-' + qid);
     if (nextBtn) nextBtn.disabled = false;
 
-    // If entity changed, rebuild questions
+    // If entity changed, rebuild questions to handle conditionals
     if (qid === 'entity') {
+      // Clear income_type if switching to W2 employee
+      if (val === 'w2_employee') {
+        delete answers.income_type;
+      }
+      // Clear scorp_salary if switching away from S-Corp
+      if (val !== 's_corp') {
+        delete answers.scorp_salary;
+      }
       var oldCount = activeQuestions.length;
       activeQuestions = getActiveQuestions();
       if (activeQuestions.length !== oldCount) {
         renderQuestions();
-        // Re-activate current
         var cur = $('q-' + qid);
         var allScreens = $('screen-area').querySelectorAll('.screen');
         allScreens.forEach(function(s) { s.classList.remove('active'); });
@@ -1187,17 +1264,14 @@ h1, h2, h3, h4 {
   window._goNext = function() {
     var total = activeQuestions.length;
     if (currentScreen >= total) {
-      // Show results
-      showLoading();
+      showEmailGate();
       return;
     }
-    // Check if current question answered
     var q = activeQuestions[currentScreen - 1];
     if (!answers[q.id]) return;
 
-    // If last question, show results
     if (currentScreen === total) {
-      showLoading();
+      showEmailGate();
       return;
     }
 
@@ -1217,47 +1291,96 @@ h1, h2, h3, h4 {
     transitionTo(1, 'forward');
   };
 
+  // ── Email Gate ──
+  function showEmailGate() {
+    $('screen-area').style.display = 'none';
+    $('progress-wrapper').style.display = 'none';
+    $('email-gate').classList.add('visible');
+  }
+
+  window._gateSubmit = function(e) {
+    e.preventDefault();
+    leadInfo.name = $('gate-name').value;
+    leadInfo.email = $('gate-email').value;
+    leadInfo.phone = $('gate-phone').value;
+
+    $('email-gate').classList.remove('visible');
+    $('email-gate').style.display = 'none';
+
+    // Send email in background
+    sendLeadEmail();
+
+    showLoading();
+  };
+
+  function sendLeadEmail() {
+    var result = calcScore();
+    var body = 'Broker Tax Scorecard Results\n\n';
+    body += 'Name: ' + leadInfo.name + '\n';
+    body += 'Email: ' + leadInfo.email + '\n';
+    if (leadInfo.phone) body += 'Phone: ' + leadInfo.phone + '\n';
+    body += '\nGrade: ' + result.grade + ' (' + result.gradeLabel + ')\n';
+    body += 'Score: ' + result.total + ' / ' + result.maxScore + ' (' + Math.round(result.pct) + '%)\n\n';
+    body += 'Answers:\n';
+    Object.keys(answers).forEach(function(k) {
+      body += '  ' + k + ': ' + answers[k] + '\n';
+    });
+
+    var mailto = 'mailto:jake@example.com?subject=' + encodeURIComponent('Broker Tax Scorecard - ' + leadInfo.name + ' - Grade ' + result.grade) + '&body=' + encodeURIComponent(body);
+    // Open mailto in hidden iframe to avoid navigating away
+    var a = document.createElement('a');
+    a.href = mailto;
+    a.target = '_blank';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   // ── Scoring ──
   function calcScore() {
     var isSCorp = answers.entity === 's_corp';
-    var maxScore = isSCorp ? 80 : 70;
+    var isW2Employee = answers.entity === 'w2_employee';
+    var showedIncomeType = !isW2Employee;
     var total = 0;
 
     // Income bracket (context, not scored)
     var incomeHigh = ['150-300', '300-500', '500-1m', 'over1m'].indexOf(answers.income) >= 0;
     var income300Plus = ['300-500', '500-1m', 'over1m'].indexOf(answers.income) >= 0;
 
-    // Q2: Entity
-    var entityScores = { s_corp: 10, c_corp: 6, smllc: 3, sole_prop: 2, not_sure: 1 };
+    // Entity
+    var entityScores = { s_corp: 10, w2_employee: 4, smllc: 3, sole_prop: 2, not_sure: 1 };
     total += entityScores[answers.entity] || 0;
 
-    // Penalty: income $150K+ and not S-Corp
+    // Penalty: income $150K+ and not S-Corp and not W2 employee
     var penalty = 0;
-    if (incomeHigh && answers.entity !== 's_corp') {
+    if (incomeHigh && answers.entity !== 's_corp' && answers.entity !== 'w2_employee') {
       penalty = 5;
     }
 
-    // Q3: Income type
-    var typeScores = { '1099': 10, mix: 6, w2: 4 };
-    total += typeScores[answers.income_type] || 0;
+    // Income type (only scored if shown)
+    if (showedIncomeType) {
+      var typeScores = { '1099': 10, mix: 6 };
+      total += typeScores[answers.income_type] || 0;
+    }
 
-    // Q4: Retirement
+    // Retirement
     var retScores = { max: 10, low: 5, ira: 3, none: 0 };
     total += retScores[answers.retirement] || 0;
 
-    // Q5: Estimated tax
+    // Estimated tax
     var taxScores = { w2_withholding: 10, quarterly: 8, w2_auto: 7, sometimes: 4, no: 0 };
     total += taxScores[answers.estimated_tax] || 0;
 
-    // Q6: Expenses
+    // Expenses
     var expScores = { detailed: 10, loosely: 4, not_tracking: 0 };
     total += expScores[answers.expenses] || 0;
 
-    // Q7: Planning
+    // Planning
     var planScores = { '6months': 10, year: 6, over_year: 2, never: 0 };
     total += planScores[answers.planning] || 0;
 
-    // Q8: S-Corp salary
+    // S-Corp salary
     if (isSCorp && answers.scorp_salary) {
       var salScores = { '30-50': 10, over50: 5, under30: 2, not_sure: 1 };
       total += salScores[answers.scorp_salary] || 0;
@@ -1265,6 +1388,11 @@ h1, h2, h3, h4 {
 
     total -= penalty;
     if (total < 0) total = 0;
+
+    // Max score depends on which questions were shown
+    var maxScore = 50; // entity + retirement + estimated_tax + expenses + planning
+    if (showedIncomeType) maxScore += 10;
+    if (isSCorp) maxScore += 10;
 
     var pct = (total / maxScore) * 100;
 
@@ -1286,7 +1414,6 @@ h1, h2, h3, h4 {
       gradeSummary = "Your tax structure needs attention \u2014 but the good news is the fixes are straightforward.";
     }
 
-    // Critical flags
     var criticalRetirement = income300Plus && (answers.retirement === 'none');
 
     return {
@@ -1298,6 +1425,7 @@ h1, h2, h3, h4 {
       gradeSummary: gradeSummary,
       gradeColor: gradeColor,
       isSCorp: isSCorp,
+      isW2Employee: isW2Employee,
       penalty: penalty,
       incomeHigh: incomeHigh,
       income300Plus: income300Plus,
@@ -1308,9 +1436,9 @@ h1, h2, h3, h4 {
   // ── Snapshot rows ──
   function getSnapshotRows(result) {
     var rows = [];
-    // Entity gap
-    if (answers.entity !== 's_corp' && result.incomeHigh) {
-      var entityLabels = { sole_prop: 'Schedule C / Sole Prop', smllc: 'Single-Member LLC', c_corp: 'C-Corporation', not_sure: 'Unsure of entity structure' };
+    // Entity gap (not for W2 employees)
+    if (answers.entity !== 's_corp' && answers.entity !== 'w2_employee' && result.incomeHigh) {
+      var entityLabels = { sole_prop: 'Schedule C / Sole Prop', smllc: 'Single-Member LLC', not_sure: 'Unsure of entity structure' };
       rows.push({
         current: entityLabels[answers.entity] || 'Current structure',
         optimal: 'S-Corporation saving $15K\u2013$40K+/yr in SE tax'
@@ -1338,7 +1466,7 @@ h1, h2, h3, h4 {
     } else if (answers.estimated_tax === 'sometimes') {
       rows.push({ current: 'Sporadic estimated payments', optimal: 'Structured payments avoiding underpayment penalties' });
     } else if (answers.estimated_tax === 'no') {
-      rows.push({ current: 'No quarterly estimates', optimal: 'Structured payments avoiding underpayment penalties' });
+      rows.push({ current: 'Paying only at filing time', optimal: 'Structured payments avoiding underpayment penalties' });
     }
     // Expense tracking
     if (answers.expenses === 'loosely') {
@@ -1357,69 +1485,63 @@ h1, h2, h3, h4 {
   function getRecommendations(result) {
     var recs = [];
     var incomeLabels = { under150: 'under $150K', '150-300': '$150K\u2013$300K', '300-500': '$300K\u2013$500K', '500-1m': '$500K\u2013$1M', over1m: 'over $1M' };
-    var entityLabels = { sole_prop: 'Sole Proprietorship', smllc: 'Single-Member LLC', c_corp: 'C-Corporation', not_sure: 'uncertain entity structure' };
+    var entityLabels = { sole_prop: 'Sole Proprietorship', smllc: 'Single-Member LLC', not_sure: 'uncertain entity structure' };
 
-    // 1. S-Corp gap (highest priority)
-    if (answers.entity !== 's_corp' && result.incomeHigh) {
+    // 1. S-Corp gap (highest priority, not for W2 employees)
+    if (answers.entity !== 's_corp' && answers.entity !== 'w2_employee' && result.incomeHigh) {
       recs.push("You're earning " + (incomeLabels[answers.income] || '') + ' on a ' + (entityLabels[answers.entity] || 'current structure') + ' \u2014 an S-Corp election could reduce your self-employment taxes by $15,000 to $40,000+ per year. This is likely your single biggest savings opportunity.');
     }
 
-    // 7. S-Corp salary too low
+    // S-Corp salary too low
     if (result.isSCorp && answers.scorp_salary === 'under30') {
       recs.push("Your S-Corp salary may be set too low relative to your income. The IRS requires a \u2018reasonable salary\u2019 \u2014 setting it below ~30% of net income is a common audit trigger. Getting this number right protects you while still maximizing your tax savings.");
     }
 
-    // 8. S-Corp salary too high
+    // S-Corp salary too high
     if (result.isSCorp && answers.scorp_salary === 'over50') {
       recs.push("You may be paying yourself more salary than necessary through your S-Corp, which means you're overpaying FICA taxes. Dialing this back to the right level could put thousands back in your pocket.");
     }
 
-    // 9. S-Corp salary not sure
+    // S-Corp salary not sure
     if (result.isSCorp && answers.scorp_salary === 'not_sure') {
       recs.push("Not knowing your salary-to-distribution ratio is a red flag \u2014 this is one of the most important numbers in your S-Corp. Getting this dialed in is critical for both tax savings and IRS compliance.");
     }
 
-    // 2. Retirement gap
+    // Retirement gap
     if (answers.retirement === 'none' || answers.retirement === 'ira') {
       recs.push("Without a business retirement plan, you're missing out on one of the best tax shelters available. A Solo 401(k) could let you defer up to $69,000/year in pre-tax income.");
     }
 
-    // 3. No tax planning
+    // No tax planning
     if (answers.planning === 'never' || answers.planning === 'over_year') {
       recs.push("Most of the biggest tax savings require planning before year-end \u2014 not at filing time. A proactive tax planning session could surface opportunities you're currently missing.");
     }
 
-    // 4. Expense tracking
+    // Expense tracking
     if (answers.expenses === 'loosely' || answers.expenses === 'not_tracking') {
       recs.push("Tightening up your deduction tracking could put thousands back in your pocket. Many brokers under-deduct because they don't have a system in place.");
     }
 
-    // 5. Estimated payments - no system
-    if (answers.estimated_tax === 'no' && answers.income_type !== 'w2') {
-      recs.push("As a 1099 earner, inconsistent quarterly payments can lead to IRS underpayment penalties. Getting on a structured schedule protects you and improves cash flow predictability.");
+    // Estimated payments - paying at filing only
+    if (answers.estimated_tax === 'no' && !result.isW2Employee) {
+      recs.push("Paying only at filing time can lead to IRS underpayment penalties. Getting on a structured payment schedule protects you and improves cash flow predictability.");
     }
 
-    // 6. Not using W-2 withholding strategy
+    // Not using W-2 withholding strategy
     if (result.isSCorp && answers.estimated_tax === 'quarterly') {
       recs.push("If you're an S-Corp, there's a smarter way to handle tax payments: withhold through your W-2 salary with a year-end true-up. Unlike quarterly estimates, W-2 withholding is treated as paid evenly throughout the year \u2014 which means no underpayment penalties, even if you do it all in December.");
     }
 
-    // 10. W-2 optimization
-    if (answers.income_type === 'w2') {
+    // W-2 optimization
+    if (result.isW2Employee) {
       recs.push("Being W-2 limits some optimization strategies, but there may still be opportunities worth exploring \u2014 especially around retirement plans and deduction strategies.");
     }
 
-    // Return top 3
     return recs.slice(0, 3);
   }
 
   // ── Show Loading ──
   function showLoading() {
-    // Hide question screens
-    var area = $('screen-area');
-    area.style.display = 'none';
-    $('progress-wrapper').style.display = 'none';
-
     var loading = $('loading-screen');
     loading.classList.add('visible');
 
@@ -1479,19 +1601,11 @@ h1, h2, h3, h4 {
       html += '</div>';
     }
 
-    // CTA
+    // CTA - Book a Call
     html += '<div class="cta-section" id="cta-section">';
-    html += '<div class="cta-title">Want to see exactly how much you could save?</div>';
-    html += '<div class="cta-sub">Get a personalized breakdown of your tax optimization opportunities.</div>';
-    html += '<form id="lead-form" onsubmit="window._submitForm(event)">';
-    html += '<div class="form-group"><label>First Name</label><input type="text" class="form-input" id="lead-name" placeholder="Your first name" required></div>';
-    html += '<div class="form-group"><label>Email</label><input type="email" class="form-input" id="lead-email" placeholder="you@email.com" required></div>';
-    html += '<div class="form-group"><label>Phone <span class="optional-label">(optional)</span></label><input type="tel" class="form-input" id="lead-phone" placeholder="(555) 555-5555"></div>';
-    html += '<button type="submit" class="btn-cta">Send My Full Breakdown</button>';
-    html += '</form>';
-    html += '<div class="divider-or">\u2014 or \u2014</div>';
-    html += '<div style="margin-bottom:8px;font-size:0.9rem;opacity:0.8;">Ready to talk? Book a free 15-minute tax strategy call.</div>';
-    html += '<a href="https://calendly.com/placeholder" target="_blank" class="btn-book">Book a Call</a>';
+    html += '<div class="cta-title">Ready to see exactly how much you could save?</div>';
+    html += '<div class="cta-sub">Book a free 15-minute tax strategy call and we\'ll walk through your personalized opportunities.</div>';
+    html += '<a href="https://forcrebrokers.com/callus" target="_blank" class="btn-book">Book a Free Call</a>';
     html += '</div>';
 
     // Share
@@ -1516,22 +1630,13 @@ h1, h2, h3, h4 {
     resultsEl.innerHTML = html;
     resultsEl.classList.add('visible');
 
-    // Store result for sharing
     window._currentResult = result;
 
-    // Staggered reveal animations
-    setTimeout(function() {
-      $('grade-circle').classList.add('revealed');
-    }, 200);
-    setTimeout(function() {
-      $('grade-label').classList.add('revealed');
-    }, 500);
-    setTimeout(function() {
-      $('grade-summary').classList.add('revealed');
-    }, 700);
-    setTimeout(function() {
-      $('score-detail').classList.add('revealed');
-    }, 900);
+    // Staggered reveal
+    setTimeout(function() { $('grade-circle').classList.add('revealed'); }, 200);
+    setTimeout(function() { $('grade-label').classList.add('revealed'); }, 500);
+    setTimeout(function() { $('grade-summary').classList.add('revealed'); }, 700);
+    setTimeout(function() { $('score-detail').classList.add('revealed'); }, 900);
 
     var sections = ['snapshot-section', 'recs-section', 'cta-section', 'share-section'];
     var delay = 1000;
@@ -1543,29 +1648,6 @@ h1, h2, h3, h4 {
       }
     });
   }
-
-  // ── Form Submit ──
-  window._submitForm = function(e) {
-    e.preventDefault();
-    var name = $('lead-name').value;
-    var email = $('lead-email').value;
-    var phone = $('lead-phone').value;
-    var result = window._currentResult;
-
-    var body = 'Broker Tax Scorecard Results\n\n';
-    body += 'Name: ' + name + '\n';
-    body += 'Email: ' + email + '\n';
-    if (phone) body += 'Phone: ' + phone + '\n';
-    body += '\nGrade: ' + result.grade + ' (' + result.gradeLabel + ')\n';
-    body += 'Score: ' + result.total + ' / ' + result.maxScore + ' (' + Math.round(result.pct) + '%)\n\n';
-    body += 'Answers:\n';
-    Object.keys(answers).forEach(function(k) {
-      body += '  ' + k + ': ' + answers[k] + '\n';
-    });
-
-    var mailto = 'mailto:jake@example.com?subject=' + encodeURIComponent('Broker Tax Scorecard - ' + name + ' - Grade ' + result.grade) + '&body=' + encodeURIComponent(body);
-    window.location.href = mailto;
-  };
 
   // ── Share ──
   window._shareScore = function() {
