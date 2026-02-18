@@ -1042,11 +1042,11 @@ h1, h2, h3, h4 {
   'use strict';
 
   // ── Question Data ──
-  // Order: Income > Entity > Income Type (conditional) > Retirement > Estimated Tax > Expenses > Planning > S-Corp Salary (conditional)
+  // Order: Income > Income Type > Entity > Retirement > Estimated Tax > Expenses > Planning > S-Corp Salary (conditional)
   var questions = [
     {
       id: 'income',
-      text: "What's your annual gross commission income?",
+      text: "What's your annual net income?",
       options: [
         { label: 'Under $150K', value: 'under150' },
         { label: '$150K \u2013 $300K', value: '150-300' },
@@ -1056,24 +1056,24 @@ h1, h2, h3, h4 {
       ]
     },
     {
+      id: 'income_type',
+      text: 'How do you receive your commission income?',
+      options: [
+        { label: '1099 independent contractor', value: '1099' },
+        { label: 'Mix of W-2 and 1099', value: 'mix' },
+        { label: "I'm a W-2 employee", value: 'w2' }
+      ]
+    },
+    {
       id: 'entity',
       text: 'How is your business currently structured?',
+      conditional: true,
+      showIf: function(a) { return a.income_type !== 'w2'; },
       options: [
         { label: 'Sole Proprietor / Schedule C', value: 'sole_prop' },
         { label: 'Single-Member LLC (taxed as sole prop)', value: 'smllc' },
         { label: 'S-Corporation', value: 's_corp' },
-        { label: "I'm a W-2 employee", value: 'w2_employee' },
         { label: "I'm not sure", value: 'not_sure' }
-      ]
-    },
-    {
-      id: 'income_type',
-      text: 'How do you receive your commission income?',
-      conditional: true,
-      showIf: function(a) { return a.entity !== 'w2_employee'; },
-      options: [
-        { label: '1099 independent contractor', value: '1099' },
-        { label: 'Mix of W-2 and 1099', value: 'mix' }
       ]
     },
     {
@@ -1255,14 +1255,11 @@ h1, h2, h3, h4 {
     var nextBtn = $('next-' + qid);
     if (nextBtn) nextBtn.disabled = false;
 
-    // If entity changed, rebuild questions to handle conditionals
-    if (qid === 'entity') {
-      // Clear income_type if switching to W2 employee
-      if (val === 'w2_employee') {
-        delete answers.income_type;
-      }
-      // Clear scorp_salary if switching away from S-Corp
-      if (val !== 's_corp') {
+    // If income_type changed, rebuild questions to handle conditionals
+    if (qid === 'income_type') {
+      // Clear entity and scorp_salary if switching to W2
+      if (val === 'w2') {
+        delete answers.entity;
         delete answers.scorp_salary;
       }
       var oldCount = activeQuestions.length;
@@ -1273,6 +1270,22 @@ h1, h2, h3, h4 {
         var allScreens = $('screen-area').querySelectorAll('.screen');
         allScreens.forEach(function(s) { s.classList.remove('active'); });
         cur.classList.add('active');
+        updateProgress();
+      }
+    }
+    // If entity changed, rebuild questions to handle S-Corp conditional
+    if (qid === 'entity') {
+      if (val !== 's_corp') {
+        delete answers.scorp_salary;
+      }
+      var oldCount2 = activeQuestions.length;
+      activeQuestions = getActiveQuestions();
+      if (activeQuestions.length !== oldCount2) {
+        renderQuestions();
+        var cur2 = $('q-' + qid);
+        var allScreens2 = $('screen-area').querySelectorAll('.screen');
+        allScreens2.forEach(function(s) { s.classList.remove('active'); });
+        cur2.classList.add('active');
         updateProgress();
       }
     }
@@ -1356,29 +1369,29 @@ h1, h2, h3, h4 {
 
   // ── Scoring ──
   function calcScore() {
+    var isW2Employee = answers.income_type === 'w2';
     var isSCorp = answers.entity === 's_corp';
-    var isW2Employee = answers.entity === 'w2_employee';
-    var showedIncomeType = !isW2Employee;
+    var showedEntity = !isW2Employee;
     var total = 0;
 
     // Income bracket (context, not scored)
     var incomeHigh = ['150-300', '300-500', '500-1m', 'over1m'].indexOf(answers.income) >= 0;
     var income300Plus = ['300-500', '500-1m', 'over1m'].indexOf(answers.income) >= 0;
 
-    // Entity
-    var entityScores = { s_corp: 10, w2_employee: 4, smllc: 3, sole_prop: 2, not_sure: 1 };
-    total += entityScores[answers.entity] || 0;
+    // Income type (always shown now)
+    var typeScores = { '1099': 10, mix: 6, w2: 4 };
+    total += typeScores[answers.income_type] || 0;
+
+    // Entity (only scored if shown - not shown for W2 employees)
+    if (showedEntity) {
+      var entityScores = { s_corp: 10, smllc: 3, sole_prop: 2, not_sure: 1 };
+      total += entityScores[answers.entity] || 0;
+    }
 
     // Penalty: income $150K+ and not S-Corp and not W2 employee
     var penalty = 0;
-    if (incomeHigh && answers.entity !== 's_corp' && answers.entity !== 'w2_employee') {
+    if (incomeHigh && !isSCorp && !isW2Employee) {
       penalty = 5;
-    }
-
-    // Income type (only scored if shown)
-    if (showedIncomeType) {
-      var typeScores = { '1099': 10, mix: 6 };
-      total += typeScores[answers.income_type] || 0;
     }
 
     // Retirement
@@ -1407,8 +1420,8 @@ h1, h2, h3, h4 {
     if (total < 0) total = 0;
 
     // Max score depends on which questions were shown
-    var maxScore = 50; // entity + retirement + estimated_tax + expenses + planning
-    if (showedIncomeType) maxScore += 10;
+    var maxScore = 50; // income_type + retirement + estimated_tax + expenses + planning
+    if (showedEntity) maxScore += 10;
     if (isSCorp) maxScore += 10;
 
     var pct = (total / maxScore) * 100;
@@ -1454,7 +1467,7 @@ h1, h2, h3, h4 {
   function getSnapshotRows(result) {
     var rows = [];
     // Entity gap (not for W2 employees)
-    if (answers.entity !== 's_corp' && answers.entity !== 'w2_employee' && result.incomeHigh) {
+    if (answers.entity !== 's_corp' && !result.isW2Employee && result.incomeHigh) {
       var entityLabels = { sole_prop: 'Schedule C / Sole Prop', smllc: 'Single-Member LLC', not_sure: 'Unsure of entity structure' };
       rows.push({
         current: entityLabels[answers.entity] || 'Current structure',
@@ -1505,7 +1518,7 @@ h1, h2, h3, h4 {
     var entityLabels = { sole_prop: 'Sole Proprietorship', smllc: 'Single-Member LLC', not_sure: 'uncertain entity structure' };
 
     // 1. S-Corp gap (highest priority, not for W2 employees)
-    if (answers.entity !== 's_corp' && answers.entity !== 'w2_employee' && result.incomeHigh) {
+    if (answers.entity !== 's_corp' && !result.isW2Employee && result.incomeHigh) {
       recs.push("You're earning " + (incomeLabels[answers.income] || '') + ' on a ' + (entityLabels[answers.entity] || 'current structure') + ' \u2014 an S-Corp election could reduce your self-employment taxes by $15,000 to $40,000+ per year. This is likely your single biggest savings opportunity.');
     }
 
