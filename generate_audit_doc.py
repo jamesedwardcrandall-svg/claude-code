@@ -59,7 +59,7 @@ questions = [
     {
         'id': 'entity',
         'num': 3,
-        'text': 'How is your business currently structured?',
+        'text': 'How is your income currently structured?',
         'condition': 'Only shown if income_type ≠ "w2"',
         'options': [
             ('Sole Proprietor / Schedule C', 'sole_prop'),
@@ -319,10 +319,10 @@ snapshots = [
        'Dialed-in ratio maximizing savings and compliance')]),
     ('No retirement plan', 'retirement = "none" OR "ira"',
      [('No business retirement plan',
-       'Solo 401(k) sheltering up to $69K/yr tax-deferred')]),
+       'Solo 401(k) sheltering up to $72K/yr tax-deferred')]),
     ('Low retirement', 'retirement = "low"',
      [('Low retirement contributions',
-       'Maxed-out retirement plan sheltering up to $69K/yr')]),
+       'Maxed-out retirement plan sheltering up to $72K/yr')]),
     ('Quarterly payments (S-Corp)', 'estimated_tax = "quarterly" AND isSCorp',
      [('Quarterly estimated payments',
        'Year-end W-2 withholding strategy — no underpayment penalties')]),
@@ -368,8 +368,8 @@ recs = [
     (
         '1. S-Corp gap',
         'entity ≠ s_corp AND not W2 employee AND incomeHigh',
-        "You're earning [income bracket] on a [entity label] — an S-Corp election could reduce your "
-        "self-employment taxes by $15,000 to $40,000+ per year. This is likely your single biggest savings opportunity."
+        "You're earning [income bracket] on a [entity label] — a well-run S Corp could reduce your "
+        "total tax bill by thousands (if not tens of thousands) of dollars per year. This is likely your single biggest savings opportunity."
     ),
     (
         '2. S-Corp salary too low',
@@ -394,7 +394,7 @@ recs = [
         '5. Retirement gap',
         'retirement = "none" OR "ira"',
         "Without a business retirement plan, you're missing out on one of the best tax shelters available. "
-        "A Solo 401(k) could let you defer up to $69,000/year in pre-tax income."
+        "A Solo 401(k) could let you defer up to $72,000/year in pre-tax income."
     ),
     (
         '6. No tax planning',

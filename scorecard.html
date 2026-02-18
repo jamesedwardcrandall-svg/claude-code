@@ -1066,7 +1066,7 @@ h1, h2, h3, h4 {
     },
     {
       id: 'entity',
-      text: 'How is your business currently structured?',
+      text: 'How is your income currently structured?',
       conditional: true,
       showIf: function(a) { return a.income_type !== 'w2'; },
       options: [
@@ -1486,9 +1486,9 @@ h1, h2, h3, h4 {
     }
     // Retirement gap
     if (answers.retirement === 'none' || answers.retirement === 'ira') {
-      rows.push({ current: 'No business retirement plan', optimal: 'Solo 401(k) sheltering up to $69K/yr tax-deferred' });
+      rows.push({ current: 'No business retirement plan', optimal: 'Solo 401(k) sheltering up to $72K/yr tax-deferred' });
     } else if (answers.retirement === 'low') {
-      rows.push({ current: 'Low retirement contributions', optimal: 'Maxed-out retirement plan sheltering up to $69K/yr' });
+      rows.push({ current: 'Low retirement contributions', optimal: 'Maxed-out retirement plan sheltering up to $72K/yr' });
     }
     // Estimated payments
     if (answers.estimated_tax === 'quarterly' && result.isSCorp) {
@@ -1519,7 +1519,7 @@ h1, h2, h3, h4 {
 
     // 1. S-Corp gap (highest priority, not for W2 employees)
     if (answers.entity !== 's_corp' && !result.isW2Employee && result.incomeHigh) {
-      recs.push("You're earning " + (incomeLabels[answers.income] || '') + ' on a ' + (entityLabels[answers.entity] || 'current structure') + ' \u2014 an S-Corp election could reduce your self-employment taxes by $15,000 to $40,000+ per year. This is likely your single biggest savings opportunity.');
+      recs.push("You're earning " + (incomeLabels[answers.income] || '') + ' on a ' + (entityLabels[answers.entity] || 'current structure') + ' \u2014 a well-run S Corp could reduce your total tax bill by thousands (if not tens of thousands) of dollars per year. This is likely your single biggest savings opportunity.');
     }
 
     // S-Corp salary too low
@@ -1539,7 +1539,7 @@ h1, h2, h3, h4 {
 
     // Retirement gap
     if (answers.retirement === 'none' || answers.retirement === 'ira') {
-      recs.push("Without a business retirement plan, you're missing out on one of the best tax shelters available. A Solo 401(k) could let you defer up to $69,000/year in pre-tax income.");
+      recs.push("Without a business retirement plan, you're missing out on one of the best tax shelters available. A Solo 401(k) could let you defer up to $72,000/year in pre-tax income.");
     }
 
     // No tax planning
